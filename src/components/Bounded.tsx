@@ -1,28 +1,35 @@
-import { CSSProperties, ElementType, ReactNode } from "react";
+import {
+  ElementType,
+  ReactNode,
+  ComponentPropsWithRef,
+  JSX,
+} from "react";
 import clsx from "clsx";
 
-type BoundedProps = {
-  as?: ElementType;
+// Универсальный тип пропсов для обобщённого компонента
+type BoundedProps<T extends ElementType> = {
+  as?: T;
   className?: string;
-  style?: CSSProperties;
   children: ReactNode;
-};
+} & ComponentPropsWithRef<T>;
 
-export function Bounded({
-  as: Comp = "section",
+export function Bounded<T extends ElementType = "section">({
+  as,
   className,
   children,
-  ...restProps
-}: BoundedProps) {
+  ...rest
+}: BoundedProps<T>): JSX.Element {
+  const Component = as || "section";
+
   return (
-    <Comp
+    <Component
+      {...rest}
       className={clsx(
         "px-6 ~py-10/16 [.header+&]:pt-44 [.header+&]:md:pt-32",
-        className,
+        className
       )}
-      {...restProps}
     >
       <div className="mx-auto w-full max-w-6xl">{children}</div>
-    </Comp>
+    </Component>
   );
 }
