@@ -4,8 +4,14 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useCart } from '@/contexts/CartContext';
 import { useCustomizerControls } from '@/app/build/context';
-import { isFilled } from '@prismicio/client';
+import { isFilled, Content } from '@prismicio/client';
 import { FaPlus } from 'react-icons/fa6';
+
+type CustomizerField =
+  | Content.BoardCustomizerDocumentDataWheelsItem
+  | Content.BoardCustomizerDocumentDataDecksItem
+  | Content.BoardCustomizerDocumentDataMetalsItem
+  | undefined;
 
 export function AddToCartButtonWrapper() {
   const router = useRouter();
@@ -14,7 +20,7 @@ export function AddToCartButtonWrapper() {
     useCustomizerControls();
   const [completeImage, setCompleteImage] = useState<string>('');
 
-  const getUid = (field: any) =>
+  const getUid = (field: CustomizerField) =>
     isFilled.keyText(field?.uid) ? field.uid : null;
 
   const formatUid = (uid: string | null, fallback: string) => {

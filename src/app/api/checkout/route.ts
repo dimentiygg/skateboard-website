@@ -1,6 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 
+interface CartItem {
+  id: string;
+  name: string;
+  price: number;
+  quantity: number;
+  image?: string;
+}
+
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: '2025-11-17.clover',
 });
@@ -47,7 +55,7 @@ export async function POST(request: NextRequest) {
       cancel_url: `${request.nextUrl.origin}/checkout/cancel`,
       metadata: {
         items: JSON.stringify(
-          items.map((item: any) => ({ id: item.id, qty: item.quantity }))
+          items.map((item: CartItem) => ({ id: item.id, qty: item.quantity }))
         ),
       },
     });

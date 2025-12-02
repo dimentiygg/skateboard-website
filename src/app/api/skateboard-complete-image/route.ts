@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/prismicio';
-import { asImageSrc, isFilled } from '@prismicio/client';
+import { asImageSrc, isFilled, ImageField } from '@prismicio/client';
 
 const normalize = (str: string) => str.toLowerCase().replace(/[-_\s]/g, '');
 
@@ -9,7 +9,10 @@ const matchesDeckUid = (url: string, uid: string | null) => {
   return normalize(url).includes(normalize(uid));
 };
 
-const findCompleteImage = (imageField: any, deckUid: string | null) => {
+const findCompleteImage = (
+  imageField: ImageField | null | undefined,
+  deckUid: string | null
+) => {
   if (!isFilled.image(imageField)) return null;
 
   const url = asImageSrc(imageField);
@@ -48,7 +51,7 @@ export async function GET(request: NextRequest) {
     }
 
     return NextResponse.json({ imageUrl: fallback });
-  } catch (error) {
+  } catch {
     return NextResponse.json({ imageUrl: null }, { status: 500 });
   }
 }
