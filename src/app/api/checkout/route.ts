@@ -9,18 +9,20 @@ interface CartItem {
   image?: string;
 }
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2025-11-17.clover',
-});
-
 export async function POST(request: NextRequest) {
   try {
-    if (!process.env.STRIPE_SECRET_KEY?.startsWith('sk_')) {
+    const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
+
+    if (!stripeSecretKey?.startsWith('sk_')) {
       return NextResponse.json(
         { error: 'Stripe is not configured' },
         { status: 500 }
       );
     }
+
+    const stripe = new Stripe(stripeSecretKey, {
+      apiVersion: '2025-11-17.clover',
+    });
 
     const { items } = await request.json();
 
