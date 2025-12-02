@@ -9,9 +9,9 @@ type Props = {
 export default function Layout({children}: Props) {
   return (
     <>
-<Header/>
-{children}
-<Footer/>
+      <Header/>
+      {children}
+      <Footer/>
     </>
   )
 }

@@ -1,6 +1,6 @@
-import { ButtonLink } from '@/components/ButtonLink'
 import { Heading } from '@/components/Heading'
 import { Logo } from '@/components/Logo'
+import { AddToCartButtonWrapper } from '@/components/AddToCartButtonWrapper'
 import Link from 'next/link'
 import React from 'react'
 
@@ -58,9 +58,7 @@ export default async function Page(props:{searchParams:Promise<SearchParams>}) {
             Build your board
         </Heading>
         <Controls wheels={wheels} decks={decks} metals={metals} className='mb-6'/>
-        <ButtonLink href="" color='lime' icon='plus'>
-            Add to cart
-        </ButtonLink>
+        <AddToCartButtonWrapper />
         </div>
 
     </CustomizerControlsProvider>

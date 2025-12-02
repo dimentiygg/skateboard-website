@@ -29,6 +29,23 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
+## Stripe Payment Setup
+
+This project includes Stripe payment integration. To enable payments:
+
+1. Create a Stripe account at [https://stripe.com](https://stripe.com)
+2. Get your API keys from [Stripe Dashboard](https://dashboard.stripe.com/apikeys)
+3. Create a `.env.local` file in the root directory and add:
+
+```
+STRIPE_SECRET_KEY=sk_test_your_secret_key_here
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_your_publishable_key_here
+```
+
+4. For production, use your live keys (without `_test_`)
+
+**Note:** Make sure `.env.local` is in your `.gitignore` file to keep your keys secure.
+
 ## Deploy on Vercel
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.

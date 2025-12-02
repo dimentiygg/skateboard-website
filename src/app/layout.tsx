@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Bowlby_One_SC, DM_Mono } from 'next/font/google'
 import "./globals.css";
 import { SVGFilters } from "@/components/SVGFilters";
+import { CartProvider } from "@/contexts/CartContext";
+import { Cart } from "@/components/Cart";
 import { createClient } from "@/prismicio";
 
 
@@ -43,10 +45,13 @@ export default function RootLayout({
       <body
         className={`${bowlby.variable} ${dmMono.variable} antialiased font-mono font-medium text-zinc-800`}
       >
-    <main>
+    <CartProvider>
+      <main>
         {children}
-    </main>
-    <SVGFilters/>
+      </main>
+      <Cart />
+      <SVGFilters/>
+    </CartProvider>
       </body>
     </html>
   );
